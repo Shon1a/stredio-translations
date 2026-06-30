@@ -1,0 +1,7 @@
+{
+  "source": "en",
+  "languages": [
+    { "code": "en", "name": "English",  "nativeName": "English",  "short": "EN", "file": "en.json" },
+    { "code": "ka", "name": "Georgian", "nativeName": "ქართული", "short": "GE", "file": "ka.json" }
+  ]
+}
