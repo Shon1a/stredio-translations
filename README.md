@@ -1,55 +1,31 @@
-# Stredio Translations
+# stredio-translations
 
-UI translation strings for [Stredio](https://stredio.com). Inspired by
-[`Stremio/stremio-translations`](https://github.com/Stremio/stremio-translations):
-one JSON file per language, loaded by the site at runtime over a CDN.
+UI translation strings for [STREDIO](https://github.com/Shon1a/Stredio) — one JSON file per language, loaded by the site at runtime. English ships inline as an offline fallback; other languages load on demand.
 
 ## Structure
 
 ```
-index.json     # manifest — lists every available language (drives the in-app picker)
-en.json        # English — the source of truth. Every key lives here first.
-ka.json        # Georgian (ქართული)
-xx.json        # add more languages by copying en.json and translating the values
+index.json     manifest — lists every available language (drives the in-app picker)
+en.json        English — the source of truth; every key lives here first
+ka.json        Georgian (ქართული)
+xx.json        add a language by copying en.json and translating the values
 ```
 
-Keys are flat, dotted strings (`nav.home`, `ui.filters_t`, `player.skip_intro`).
-`{placeholder}` tokens inside a value are filled in by the app — **keep them
-unchanged** and only translate the surrounding words.
+Keys are flat, dotted strings (`nav.home`, `player.skip_intro`). A `{placeholder}` token inside a value is filled in by the app — leave it unchanged and translate only the surrounding words.
 
-## How the site loads these
+## Add a language
 
-Stredio bundles `en.json` inline as an offline fallback, then fetches the
-selected language from jsDelivr:
-
-```
-https://cdn.jsdelivr.net/gh/Shon1a/stredio-translations@main/<code>.json
-```
-
-The language picker in the app is built from `index.json`, so a new language
-appears automatically once it is added there.
-
-> jsDelivr caches `@main` for up to 12h. To force-refresh after an edit, either
-> tag a release and point the app at the tag, or purge:
-> `https://purge.jsdelivr.net/gh/Shon1a/stredio-translations@main/<code>.json`
-
-## Add a new language
-
-1. Copy `en.json` to `<code>.json` (e.g. `de.json` for German). Use the short
-   [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) code.
-2. Translate **only the values**. Never change a key, and never touch
-   `{placeholder}` tokens.
+1. Copy `en.json` to `<code>.json` using the short [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) code (e.g. `de.json`).
+2. Translate the **values only** — never change a key or a `{placeholder}` token.
 3. Add an entry to `index.json`:
    ```json
    { "code": "de", "name": "German", "nativeName": "Deutsch", "short": "DE", "file": "de.json" }
    ```
-4. Open a pull request.
+4. Open a pull request. The in-app picker updates automatically.
 
-## Update an existing language
+## Update a language
 
-Edit the matching `<code>.json`. Make sure it has **every** key that `en.json`
-has — missing keys fall back to English at runtime, which is fine but leaves
-gaps in the UI.
+Edit the matching `<code>.json`. Keep **every** key that `en.json` has — missing keys fall back to English, which leaves gaps in the UI. `validate.js` checks each file against `en.json`.
 
 ## License
 
