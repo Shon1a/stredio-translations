@@ -533,5 +533,8 @@
   "auth.signin": "Sign in",
   "auth.logout": "Log out",
   "auth.account": "Account",
-  "common.loading": "Loading…"
+  "common.loading": "Loading…",
+  "settings.sub_sat_a": "Saturation",
+  "settings.sub_val_a": "Brightness",
+  "settings.sub_hue_a": "Hue"
 }
